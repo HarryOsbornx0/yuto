@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gol At Kazan</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <section id="iosHome" class="ios-home show">
+      <div class="status-bar">
+        <span>09:41</span>
+        <span>5G ▪︎ ▪︎ ▪︎</span>
+      </div>
+      <div class="app-grid">
+        <button id="openAppBtn" type="button" class="icon app-icon-main" aria-label="Gol At Kazan">
+          <span>⚽</span>
+          <strong>Gol At Kazan</strong>
+        </button>
+        <button id="openSecretBtn" class="icon secret-icon" type="button" aria-label="🤫"><span>🤫</span></button>
+        <button class="icon ghost-icon" type="button" data-app="Zıpla Kaç"></button>
+        <button class="icon ghost-icon" type="button" data-app="Ritim Tap"></button>
+        <button class="icon ghost-icon" type="button" data-app="Bulmaca Lab"></button>
+        <button class="icon ghost-icon" type="button" data-app="Uzay Runner"></button>
+        <button class="icon ghost-icon" type="button" data-app="Renk Savaşı"></button>
+        <button class="icon ghost-icon" type="button" data-app="Kule Savun"></button>
+      </div>
+      <div class="dock">
+        <div class="dock-icon"></div>
+        <div class="dock-icon"></div>
+        <div class="dock-icon"></div>
+        <div class="dock-icon"></div>
+      </div>
+    </section>
+
+    <section id="homeScreen" class="home">
+      <div class="app-badge">
+        <div class="app-icon">⚽</div>
+        <div>
+          <h1>Gol At Kazan</h1>
+          <p>Mini oyunlar uygulaması</p>
+        </div>
+      </div>
+      <div class="app-card">
+        <h2>Mini Game #1</h2>
+        <p>Kaleciye karşı şut at. Skor yap, seriyi büyüt.</p>
+        <div class="app-actions">
+          <button id="openGameBtn" type="button">Oyunu Aç</button>
+          <button id="backToIosBtn" type="button" class="ghost">Menüye Dön</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="secretScreen" class="home secret">
+      <div class="app-badge">
+        <div class="app-icon">🤫</div>
+        <div>
+          <h1>🤫</h1>
+          <p>Gizemli belgelerin bulunduğu uygulama</p>
+        </div>
+      </div>
+      <div class="app-card">
+        <h2>Belgeler</h2>
+        <p>Bu bölümde gizemli belgeler yer alır.</p>
+        <div class="app-actions">
+          <button id="openDocsBtn" type="button" onclick="document.getElementById('loginOverlay').classList.add('show'); document.getElementById('loginOverlay').setAttribute('aria-hidden','false');">Belgeleri Aç</button>
+          <button id="backToIosFromSecretBtn" type="button" class="ghost">Menüye Dön</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="game">
+      <header class="top">
+        <button id="backArrowBtn" class="back-arrow" aria-label="Menüye Dön">←</button>
+      <div>
+        <h1>Gol At Kazan</h1>
+        <p>Şut at, kaleciyi geçmeye çalış.</p>
+      </div>
+      <div class="score">
+        <div>Gol: <span id="score">0</span></div>
+        <div>Kaçtı: <span id="misses">0</span></div>
+        <div>Mod: <span id="modeLabel">Sonsuz</span></div>
+        <div>Süre: <span id="timeLeft">--</span></div>
+        <div>Seri: <span id="streak">0</span></div>
+        <div>En İyi Seri: <span id="bestStreak">0</span></div>
+      </div>
+    </header>
+
+    <section class="field">
+      <div id="confetti" class="confetti" aria-hidden="true"></div>
+      <div id="meteor" class="meteor" aria-hidden="true"></div>
+      <div class="goal">
+        <div class="net"></div>
+        <div id="goalkeeper" class="goalkeeper"></div>
+      </div>
+      <div id="ball" class="ball"></div>
+    </section>
+
+    <section class="controls">
+      <div class="mode-select">
+        <label>
+          Mod
+          <select id="modeSelect">
+            <option value="endless">Serbest (Antrenman)</option>
+            <option value="time">Zamana Karşı (60sn)</option>
+            <option value="first5">İlk 5 Gol</option>
+          </select>
+        </label>
+      </div>
+      <button id="shootBtn">Şut!</button>
+      <button id="resetBtn" class="ghost">Sıfırla</button>
+      <button id="finishBtn" class="ghost">Antrenmanı Bitir</button>
+      <button id="backToMenuBtn" class="ghost">Menüye Dön</button>
+      <div class="shot-types" role="group" aria-label="Şut türü">
+        <button class="shot active" data-shot="place">Plase</button>
+        <button class="shot" data-shot="power">Sert</button>
+        <button class="shot" data-shot="curve">Falsolu</button>
+      </div>
+      <label class="sound-toggle">
+        <input id="soundToggle" type="checkbox" checked />
+        Ses
+      </label>
+      <label class="speed">
+        Zorluk
+        <input id="difficulty" type="range" min="1" max="5" value="3" />
+      </label>
+    </section>
+
+    <section class="hint">
+      <div>İpucu: Sahada tıklayarak da şut atabilirsin. Şut türü gol şansını etkiler.</div>
+    </section>
+    </section>
+  </main>
+
+  <div id="resultOverlay" class="overlay" aria-live="polite" aria-hidden="true">
+    <div class="overlay-card">
+      <h2 id="resultTitle">Tebrikler!</h2>
+      <p id="resultText">Kazandın.</p>
+      <button id="playAgainBtn">Tekrar Oyna</button>
+    </div>
+    <div id="winRocket" class="win-rocket" aria-hidden="true">
+      <div class="rocket-body"></div>
+      <div class="rocket-window"></div>
+      <div class="rocket-fin left"></div>
+      <div class="rocket-fin right"></div>
+      <div class="rocket-flame"></div>
+    </div>
+  </div>
+
+  <div id="soonOverlay" class="overlay" aria-live="polite" aria-hidden="true">
+    <div class="overlay-card">
+      <h2 id="soonTitle">Yakında</h2>
+      <p id="soonText">Bu uygulama yolda.</p>
+      <button id="soonCloseBtn">Tamam</button>
+    </div>
+  </div>
+
+  <div id="loginOverlay" class="overlay" aria-live="polite" aria-hidden="true">
+    <div class="overlay-card login-card">
+      <h2>Giriş</h2>
+      <label class="login-field">
+        Kullanıcı Adı
+        <input id="loginUser" type="text" placeholder="kullanici" />
+      </label>
+      <label class="login-field">
+        Şifre
+        <input id="loginPass" type="password" placeholder="••••••••" />
+      </label>
+      <div id="loginError" class="login-error" role="alert" aria-live="polite"></div>
+      <div class="login-actions">
+        <button id="loginBtn">Giriş Yap</button>
+        <button id="showRegisterBtn" class="ghost">Kayıt Ol</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="registerOverlay" class="overlay" aria-live="polite" aria-hidden="true">
+    <div class="overlay-card login-card">
+      <h2>Kayıt Ol</h2>
+      <label class="login-field">
+        Kullanıcı Adı
+        <input id="registerUser" type="text" placeholder="kullanici" />
+      </label>
+      <label class="login-field">
+        Şifre
+        <input id="registerPass" type="password" placeholder="••••••••" />
+      </label>
+      <label class="login-field">
+        Şifre (Tekrar)
+        <input id="registerPass2" type="password" placeholder="••••••••" />
+      </label>
+      <div id="registerError" class="login-error" role="alert" aria-live="polite"></div>
+      <div class="register-field">
+        <button id="registerBtn" class="register-bounce">Kayıt Ol</button>
+      </div>
+    </div>
+  </div>
+
+  <audio id="bgAudio" preload="auto">
+    <source src="Lil Pump - Boss X Hunnid dolla (Best Part + Slowed).mp3" type="audio/mpeg" />
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
