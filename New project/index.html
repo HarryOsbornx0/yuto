@@ -3,203 +3,174 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gol At Kazan</title>
+  <title>Portföy Panosu</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="app">
-    <section id="iosHome" class="ios-home show">
-      <div class="status-bar">
-        <span>09:41</span>
-        <span>5G ▪︎ ▪︎ ▪︎</span>
-      </div>
-      <div class="app-grid">
-        <button id="openAppBtn" type="button" class="icon app-icon-main" aria-label="Gol At Kazan">
-          <span>⚽</span>
-          <strong>Gol At Kazan</strong>
-        </button>
-        <button id="openSecretBtn" class="icon secret-icon" type="button" aria-label="🤫"><span>🤫</span></button>
-        <button class="icon ghost-icon" type="button" data-app="Zıpla Kaç"></button>
-        <button class="icon ghost-icon" type="button" data-app="Ritim Tap"></button>
-        <button class="icon ghost-icon" type="button" data-app="Bulmaca Lab"></button>
-        <button class="icon ghost-icon" type="button" data-app="Uzay Runner"></button>
-        <button class="icon ghost-icon" type="button" data-app="Renk Savaşı"></button>
-        <button class="icon ghost-icon" type="button" data-app="Kule Savun"></button>
-      </div>
-      <div class="dock">
-        <div class="dock-icon"></div>
-        <div class="dock-icon"></div>
-        <div class="dock-icon"></div>
-        <div class="dock-icon"></div>
-      </div>
-    </section>
-
-    <section id="homeScreen" class="home">
-      <div class="app-badge">
-        <div class="app-icon">⚽</div>
-        <div>
-          <h1>Gol At Kazan</h1>
-          <p>Mini oyunlar uygulaması</p>
+  <div class="ambient"></div>
+  <main class="page">
+    <header class="hero">
+      <div class="hero-text">
+        <span class="pill">Kişisel Portföy Uygulaması</span>
+        <h1>Yatırımlarını tek bir alanda topla, farkı anında gör.</h1>
+        <p>
+          Airdrop, kripto ve hisse senedi gibi farklı yatırım türlerini tek bir panoda
+          izlemek için tasarlandı. Maliyetlerini gir, kategorilere göre dağılımı gör,
+          notlarını sakla.
+        </p>
+        <div class="hero-actions">
+          <button class="primary" type="button" id="jumpToForm">Yeni Yatırım Ekle</button>
+          <button class="ghost" type="button" id="jumpToList">Portföyü Gör</button>
         </div>
       </div>
-      <div class="app-card">
-        <h2>Mini Game #1</h2>
-        <p>Kaleciye karşı şut at. Skor yap, seriyi büyüt.</p>
-        <div class="app-actions">
-          <button id="openGameBtn" type="button">Oyunu Aç</button>
-          <button id="backToIosBtn" type="button" class="ghost">Menüye Dön</button>
+      <div class="hero-card">
+        <h2>Bugün hızlı özet</h2>
+        <div class="hero-metrics">
+          <div>
+            <span class="metric-label">Toplam Kalem</span>
+            <strong id="totalItems">0</strong>
+          </div>
+          <div>
+            <span class="metric-label">Toplam Maliyet</span>
+            <strong id="totalCost">—</strong>
+          </div>
         </div>
-      </div>
-    </section>
-
-    <section id="secretScreen" class="home secret">
-      <div class="app-badge">
-        <div class="app-icon">🤫</div>
-        <div>
-          <h1>🤫</h1>
-          <p>Gizemli belgelerin bulunduğu uygulama</p>
-        </div>
-      </div>
-      <div class="app-card">
-        <h2>Belgeler</h2>
-        <p>Bu bölümde gizemli belgeler yer alır.</p>
-        <div class="app-actions">
-          <button id="openDocsBtn" type="button" onclick="document.getElementById('loginOverlay').classList.add('show'); document.getElementById('loginOverlay').setAttribute('aria-hidden','false');">Belgeleri Aç</button>
-          <button id="backToIosFromSecretBtn" type="button" class="ghost">Menüye Dön</button>
-        </div>
-      </div>
-    </section>
-
-    <section id="gameScreen" class="game">
-      <header class="top">
-        <button id="backArrowBtn" class="back-arrow" aria-label="Menüye Dön">←</button>
-      <div>
-        <h1>Gol At Kazan</h1>
-        <p>Şut at, kaleciyi geçmeye çalış.</p>
-      </div>
-      <div class="score">
-        <div>Gol: <span id="score">0</span></div>
-        <div>Kaçtı: <span id="misses">0</span></div>
-        <div>Mod: <span id="modeLabel">Sonsuz</span></div>
-        <div>Süre: <span id="timeLeft">--</span></div>
-        <div>Seri: <span id="streak">0</span></div>
-        <div>En İyi Seri: <span id="bestStreak">0</span></div>
+        <p class="muted" id="lastUpdated">Son güncelleme: —</p>
       </div>
     </header>
 
-    <section class="field">
-      <div id="confetti" class="confetti" aria-hidden="true"></div>
-      <div id="meteor" class="meteor" aria-hidden="true"></div>
-      <div class="goal">
-        <div class="net"></div>
-        <div id="goalkeeper" class="goalkeeper"></div>
+    <section class="summary" aria-live="polite">
+      <div class="summary-card">
+        <h3>Airdrop</h3>
+        <div class="summary-value" id="totalAirdrop">—</div>
+        <p class="summary-note">Görev, gas ve platform maliyetleri.</p>
       </div>
-      <div id="ball" class="ball"></div>
+      <div class="summary-card">
+        <h3>Kripto</h3>
+        <div class="summary-value" id="totalCrypto">—</div>
+        <p class="summary-note">BTC, ETH ve benzeri alımlar.</p>
+      </div>
+      <div class="summary-card">
+        <h3>Hisse</h3>
+        <div class="summary-value" id="totalStock">—</div>
+        <p class="summary-note">Borsa yatırımları.</p>
+      </div>
+      <div class="summary-card">
+        <h3>Diğer</h3>
+        <div class="summary-value" id="totalOther">—</div>
+        <p class="summary-note">Kategorize etmediğin kalemler.</p>
+      </div>
     </section>
 
-    <section class="controls">
-      <div class="mode-select">
-        <label>
-          Mod
-          <select id="modeSelect">
-            <option value="endless">Serbest (Antrenman)</option>
-            <option value="time">Zamana Karşı (60sn)</option>
-            <option value="first5">İlk 5 Gol</option>
+    <section class="content" id="formSection">
+      <div class="panel form-panel">
+        <div class="panel-header">
+          <h2>Yeni yatırım ekle</h2>
+          <p class="muted">Maliyetleri gir, notlarını ekle. Farklı para birimleri ayrı gösterilir.</p>
+        </div>
+        <form id="investmentForm" class="investment-form">
+          <label>
+            Yatırım adı
+            <input id="investmentName" name="name" type="text" placeholder="Cap Money Airdrop" required />
+          </label>
+          <label>
+            Kategori
+            <select id="investmentCategory" name="category">
+              <option value="airdrop">Airdrop</option>
+              <option value="crypto">Kripto</option>
+              <option value="stock">Hisse</option>
+              <option value="other">Diğer</option>
+            </select>
+          </label>
+          <div class="form-row">
+            <label>
+              Maliyet
+              <input id="investmentCost" name="cost" type="number" min="0" step="0.01" placeholder="1200" required />
+            </label>
+            <label>
+              Para birimi
+              <select id="investmentCurrency" name="currency">
+                <option value="TRY">TL</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+              </select>
+            </label>
+            <label>
+              Tarih
+              <input id="investmentDate" name="date" type="date" required />
+            </label>
+          </div>
+          <label>
+            Notlar
+            <textarea id="investmentNote" name="note" rows="3" placeholder="Örn: Galxe görevleri + gas ücreti"></textarea>
+          </label>
+          <div class="form-actions">
+            <button class="primary" type="submit" id="submitBtn">Yatırım Ekle</button>
+            <button class="ghost" type="button" id="cancelEditBtn" hidden>Düzenlemeyi İptal Et</button>
+          </div>
+          <div class="form-actions secondary">
+            <button class="ghost" type="button" id="loadSampleBtn">Örnekleri Yükle</button>
+            <button class="ghost danger" type="button" id="clearAllBtn">Tümünü Temizle</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="panel list-panel" id="listSection">
+        <div class="panel-header">
+          <h2>Portföy listesi</h2>
+          <p class="muted">Filtrele, sırala ve düzenle.</p>
+        </div>
+        <div class="list-controls">
+          <input id="searchInput" type="search" placeholder="Ara: cap money, BTC, BIST..." />
+          <select id="filterCategory">
+            <option value="all">Tümü</option>
+            <option value="airdrop">Airdrop</option>
+            <option value="crypto">Kripto</option>
+            <option value="stock">Hisse</option>
+            <option value="other">Diğer</option>
           </select>
-        </label>
+          <select id="sortBy">
+            <option value="date-desc">En yeni</option>
+            <option value="date-asc">En eski</option>
+            <option value="cost-desc">Maliyet (yüksek)</option>
+            <option value="cost-asc">Maliyet (düşük)</option>
+            <option value="name-asc">İsim (A-Z)</option>
+          </select>
+        </div>
+        <div id="investmentList" class="investment-list"></div>
+        <div id="emptyState" class="empty-state">Henüz yatırım eklenmedi.</div>
       </div>
-      <button id="shootBtn">Şut!</button>
-      <button id="resetBtn" class="ghost">Sıfırla</button>
-      <button id="finishBtn" class="ghost">Antrenmanı Bitir</button>
-      <button id="backToMenuBtn" class="ghost">Menüye Dön</button>
-      <div class="shot-types" role="group" aria-label="Şut türü">
-        <button class="shot active" data-shot="place">Plase</button>
-        <button class="shot" data-shot="power">Sert</button>
-        <button class="shot" data-shot="curve">Falsolu</button>
-      </div>
-      <label class="sound-toggle">
-        <input id="soundToggle" type="checkbox" checked />
-        Ses
-      </label>
-      <label class="speed">
-        Zorluk
-        <input id="difficulty" type="range" min="1" max="5" value="3" />
-      </label>
     </section>
 
-    <section class="hint">
-      <div>İpucu: Sahada tıklayarak da şut atabilirsin. Şut türü gol şansını etkiler.</div>
-    </section>
+    <section class="panel distribution-panel">
+      <div class="panel-header">
+        <h2>Kategori dağılımı</h2>
+        <p class="muted">Her kategori için toplam maliyeti gör.</p>
+      </div>
+      <div class="distribution-grid">
+        <div class="dist-item" data-category="airdrop">
+          <div class="dist-title">Airdrop</div>
+          <div class="dist-bar"><span></span></div>
+          <div class="dist-value" id="distAirdrop">—</div>
+        </div>
+        <div class="dist-item" data-category="crypto">
+          <div class="dist-title">Kripto</div>
+          <div class="dist-bar"><span></span></div>
+          <div class="dist-value" id="distCrypto">—</div>
+        </div>
+        <div class="dist-item" data-category="stock">
+          <div class="dist-title">Hisse</div>
+          <div class="dist-bar"><span></span></div>
+          <div class="dist-value" id="distStock">—</div>
+        </div>
+        <div class="dist-item" data-category="other">
+          <div class="dist-title">Diğer</div>
+          <div class="dist-bar"><span></span></div>
+          <div class="dist-value" id="distOther">—</div>
+        </div>
+      </div>
     </section>
   </main>
-
-  <div id="resultOverlay" class="overlay" aria-live="polite" aria-hidden="true">
-    <div class="overlay-card">
-      <h2 id="resultTitle">Tebrikler!</h2>
-      <p id="resultText">Kazandın.</p>
-      <button id="playAgainBtn">Tekrar Oyna</button>
-    </div>
-    <div id="winRocket" class="win-rocket" aria-hidden="true">
-      <div class="rocket-body"></div>
-      <div class="rocket-window"></div>
-      <div class="rocket-fin left"></div>
-      <div class="rocket-fin right"></div>
-      <div class="rocket-flame"></div>
-    </div>
-  </div>
-
-  <div id="soonOverlay" class="overlay" aria-live="polite" aria-hidden="true">
-    <div class="overlay-card">
-      <h2 id="soonTitle">Yakında</h2>
-      <p id="soonText">Bu uygulama yolda.</p>
-      <button id="soonCloseBtn">Tamam</button>
-    </div>
-  </div>
-
-  <div id="loginOverlay" class="overlay" aria-live="polite" aria-hidden="true">
-    <div class="overlay-card login-card">
-      <h2>Giriş</h2>
-      <label class="login-field">
-        Kullanıcı Adı
-        <input id="loginUser" type="text" placeholder="kullanici" />
-      </label>
-      <label class="login-field">
-        Şifre
-        <input id="loginPass" type="password" placeholder="••••••••" />
-      </label>
-      <div id="loginError" class="login-error" role="alert" aria-live="polite"></div>
-      <div class="login-actions">
-        <button id="loginBtn">Giriş Yap</button>
-        <button id="showRegisterBtn" class="ghost">Kayıt Ol</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="registerOverlay" class="overlay" aria-live="polite" aria-hidden="true">
-    <div class="overlay-card login-card">
-      <h2>Kayıt Ol</h2>
-      <label class="login-field">
-        Kullanıcı Adı
-        <input id="registerUser" type="text" placeholder="kullanici" />
-      </label>
-      <label class="login-field">
-        Şifre
-        <input id="registerPass" type="password" placeholder="••••••••" />
-      </label>
-      <label class="login-field">
-        Şifre (Tekrar)
-        <input id="registerPass2" type="password" placeholder="••••••••" />
-      </label>
-      <div id="registerError" class="login-error" role="alert" aria-live="polite"></div>
-      <div class="register-field">
-        <button id="registerBtn" class="register-bounce">Kayıt Ol</button>
-      </div>
-    </div>
-  </div>
-
-  <audio id="bgAudio" preload="auto">
-    <source src="Lil Pump - Boss X Hunnid dolla (Best Part + Slowed).mp3" type="audio/mpeg" />
-  </audio>
 
   <script src="script.js"></script>
 </body>
